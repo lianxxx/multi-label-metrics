@@ -1,2 +1,3 @@
-# multi-label-matric
-Designed multi-label metric for python. 
+# Multi-label-matric
+Multi-label metric for python.
+ 
