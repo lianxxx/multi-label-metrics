@@ -1,5 +1,5 @@
 #multilabel metrices
-#import important libraries from python - code written in python3 
+#import important libraries from python - code written in python3
 from __future__ import division
 import numpy as np
 import warnings
@@ -17,7 +17,7 @@ def pre_cal(target, prediction, print_all = False):
 
     for i in range(y_true.shape[0]):
         # real values - RP and RN
-        real_pos = np.asarray(np.append(real_pos,np.logical_and(y_true[i], y_true[i]).sum()), dtype=np.int64).reshape(-1,1) 
+        real_pos = np.asarray(np.append(real_pos,np.logical_and(y_true[i], y_true[i]).sum()), dtype=np.int64).reshape(-1,1)
         real_neg = np.asarray(np.append(real_neg,np.logical_and(np.logical_not(y_true[i]),np.logical_not(y_true[i])).sum()), dtype=np.int64).reshape(-1,1)
 
         # predicted values - PP and PN
@@ -27,12 +27,12 @@ def pre_cal(target, prediction, print_all = False):
         # true labels - TP and TN
         true_pos = np.asarray(np.append(true_pos,np.logical_and(y_true[i], y_pred[i]).sum()),dtype=np.int64).reshape(-1,1)
         true_neg = np.asarray(np.append(true_neg,np.logical_and(np.logical_not(y_true[i]), np.logical_not(y_pred[i])).sum()),dtype=np.int64).reshape(-1,1)
-        
+
     if print_all:
 		# if print_all = True - it prints RP, RN, PP, PN, TP and TN
         result = np.concatenate((real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg), axis=1)
         print(result)
-    
+
     return(real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg)
 
 #function to resolve divide by zero error and accept the value 0 when divided by 0
@@ -44,7 +44,7 @@ def divideZero( value_a, value_b):
 
 def accuracy(target, predicted):
     #return the accuracy - example based
-    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)   
+    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)
     score = (true_pos + true_neg)/(pred_pos + pred_neg)
     score = np.mean(score)
     return score
@@ -52,21 +52,21 @@ def accuracy(target, predicted):
 
 def precision(target, predicted):
     #return precision - example based
-    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)     
+    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)
     score = divideZero(true_pos, pred_pos)
     score = np.mean(score)
     return score
 
 def recall(target, predicted):
     #return precision - example based
-    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)    
+    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)
     score = divideZero(true_pos, real_pos)
     score = np.mean(score)
     return score
 
 
 def fscore(target, predicted,beta = 1):
-	#return f(beta)score - example based : default beta value is 1  
+	#return f(beta)score - example based : default beta value is 1
     prec, rec = precision(y_true, y_pred), recall(y_true, y_pred)
     beta_val = beta*beta
     score = ((1+beta_val)*(prec*rec))/(beta_val*(prec+rec))
@@ -77,7 +77,7 @@ def hamloss(target, predicted):
 	#return hamming loss - example based
     hamloss = list()
     for i in range(y_true.shape[0]):
-        hamloss = np.asarray(np.append(hamloss,np.logical_xor(y_true[i], y_pred[i]).sum()), dtype=np.int64).reshape(-1,1) 
+        hamloss = np.asarray(np.append(hamloss,np.logical_xor(y_true[i], y_pred[i]).sum()), dtype=np.int64).reshape(-1,1)
     score = (hamloss.sum())/((y_true.shape[0])*(y_true.shape[1]))
     return score
 
@@ -125,13 +125,13 @@ def microfscore(target, predicted,beta = 1):
 
 def macroprecision(target, predicted):
     #return macro-precision
-    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)     
+    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)
     score = divideZero(true_pos, pred_pos)
     return score
 
 def macrorecall(target, predicted):
     #return macro-recall
-    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)    
+    real_pos, real_neg, pred_pos, pred_neg, true_pos, true_neg = pre_cal(y_true,y_pred)
     score = divideZero(true_pos, real_pos)
     return score
 
@@ -142,4 +142,3 @@ def macrofscore(target, predicted,beta = 1):
     score = divideZero(((1+beta_val)*(prec*rec)),(beta_val*(prec+rec)))
     score = np.mean(score)
     return score
-
