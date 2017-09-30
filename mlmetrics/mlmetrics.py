@@ -1,7 +1,7 @@
 
 def divideZero(self, value_a, value_b): # function to resolve divide by zero error
     with np.errstate(divide='ignore', invalid='ignore'):
-         result = np.true_divide( value_a, value_b )
+        result = np.true_divide( value_a, value_b )
         result[ ~ np.isfinite( result )] = 0 # accept the value 0 when divided by 0
     return result
 
@@ -56,7 +56,7 @@ class mlmetrics:
 
     def fscore(self,beta = 1): # return f(beta)score - example based : default beta value is 1
         prec, rec, beta_val = precision(), recall(), beta*beta
-        return (1+beta_val)*(prec*rec))/(beta_val*(prec+rec)
+        return ((1+beta_val)*(prec*rec))/(beta_val*(prec+rec))
 
     def microprecision(self): # return micro-precision
         return self.true_pos.sum()/self.pred_pos.sum()
