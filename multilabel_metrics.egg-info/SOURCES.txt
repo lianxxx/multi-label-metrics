@@ -1,5 +1,0 @@
-setup.py
-multilabel_metrics.egg-info/PKG-INFO
-multilabel_metrics.egg-info/SOURCES.txt
-multilabel_metrics.egg-info/dependency_links.txt
-multilabel_metrics.egg-info/top_level.txt

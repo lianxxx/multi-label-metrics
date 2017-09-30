@@ -1,9 +1,3 @@
-#multilabel metrices
-#import important libraries from python - code written in python3
-from __future__ import division
-import numpy as np
-import warnings
-
 #sample input matrix format - true labels and predicted labels
 #y_true = np.array([[1,0,1,1],[0,1,0,0],[0,0,0,0],[0,1,1,0]])
 #y_pred = np.array([[0,0,1,1],[1,1,0,1],[0,1,0,0],[1,1,1,1]]
