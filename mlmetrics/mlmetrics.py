@@ -46,46 +46,59 @@ class mlmetrics:
 
 
     def accuracy(self): # return the accuracy - example based
+    # Accurracy = (True_Positive + True_Negative) / (True_Positive + True_Negative + False_Positive + Fasle_Neagtive [All Outcomes]) 
         return np.mean(self.true_pos + self.true_neg)/(self.pred_pos + self.pred_neg)
 
     def precision(self): # return precision - example based
+    # (Precision) π = (True_Positive) / (True_Positive + Fasle_Positive)
         return np.mean(divideZero(self.true_pos, self.pred_pos))
 
     def recall(self): # return precision - example based
+    # (Recall) ρ = (True_Positive) / (True_Positive + Fasle_Negative)
         return np.mean(divideZero(self.true_pos, self.real_pos))
 
     def fscore(self,beta = 1): # return f(beta)score - example based : default beta value is 1
+    # f-score = ( 1 + beta^2) * (Precision * Recall) / (beta^2) * (Precision + Recall)
         prec, rec, beta_val = precision(), recall(), beta*beta
         return ((1+beta_val)*(prec*rec))/(beta_val*(prec+rec))
 
     def microprecision(self): # return micro-precision
+    # (Micro Precision) π = (Σ(True_Positive[i])) / (Σ(True_Positive[i] + False_Positive[i]))
         return self.true_pos.sum()/self.pred_pos.sum()
 
     def microrecall(self): # return micro-recall
+    # (Micro Recall) ρ = (Σ(True_Positive[i])) / (Σ(True_Positive[i] + False_Negative[i]))
         return self.true_pos.sum()/self.real_pos.sum()
 
     def microfscore(self,beta = 1): # return micro-fscore
+    # f_micro = (2 * π * ρ) / (π + ρ)
         prec, rec, beta_val = microprecision(), microrecall(), beta*beta
         return ((1+beta_val)*(prec*rec))/(beta_val*(prec+rec))
 
     def macroprecision(self): # return macro-precision
+    # (Macro Precision) π[i] = (True_Positive[i]) / (True_Positive[i] + Fasle_Positive[i])
         return divideZero(self.true_pos, self.pred_pos)
 
     def macrorecall(self): # return macro-recall
+    # (Macro Recall) ρ[i] = (True_Positive[i]) / (True_Positive[i] + Fasle_Negative[i])
         return divideZero(self.true_pos, self.real_pos)
 
     def macrofscore(self,beta = 1): # return macro-fscore
+    # f_macro[i] = (2 * π[i] * ρ[i]) / (π[i] + ρ[i])
+    # f_macro = (1 * Σ (f_macro[i]))/ (Total No of Samples) 
         prec, rec, beta_val = macroprecision(), macrorecall(), beta*beta
         return np.mean(divideZero(((1+beta_val)*(prec*rec)),(beta_val*(prec+rec))))
 
     def hamloss(self): # return hamming loss - example based
         hamloss = []
+    # hamloss = (1 * Σ count(True[i] xor Prediction[i])/sizeofLabel)/(Total No of Samples)
         for i in range(y_true.shape[0]):
             hamloss = np.asarray(np.append(hamloss,np.logical_xor(y_true[i], y_pred[i]).sum()), dtype=np.int64).reshape(-1,1)
         return (hamloss.sum())/((y_true.shape[0])*(y_true.shape[1]))
 
     def subset(self): # return subset accuracy - example based
         subset_matrix = []
+    # subset_accuracy =   (1 * Σ (True[i] == Prediction[i]))/ ( Total No of Samples)  
         for i in range(y_true.shape[0]):
             subset_matrix = np.asarray(np.append(subset_matrix, np.array_equal(y_true[i],y_pred[i])), dtype=np.int64).reshape(-1,1)
         return (subset_matrix.sum())/((y_true.shape[0])*(y_true.shape[1]))
