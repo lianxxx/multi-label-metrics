@@ -2,3 +2,5 @@
 README.txt
 multilabel-metrics
 setup.py
+mlmetrics/__init__.py
+mlmetrics/mlmetrics.py

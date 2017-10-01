@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-from distutils.core import setup
+from setuptools import setup, find_packages
 setup(
     name='multilabel-metrics',
     version='0.0.1',
-    scripts=['multilabel-metrics'],
+    description='Multilabel classification metrics for Python',
+    long_description=open('README.txt').read(),
+    url='https://github.com/hell-sing/multi-label-metrics',
     author=u'Abhishek Verma',
     author_email='abhishek_verma@hotmail.com',
-	url='https://github.com/hell-sing/multi-label-metrics',
-	long_description=open('README.txt').read(),
-	py_modules=['mlmetrics'],
     license='GNU_GPL licence, see LICENCE.txt',
-    description='Multilabel classification metrics for Python',
-	zip_safe=False
+	py_modules=['mlmetrics']    
 )
