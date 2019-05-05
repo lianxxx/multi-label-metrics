@@ -2,15 +2,15 @@ Metadata-Version: 1.1
 Name: multilabel-metrics
 Version: 0.0.1
 Summary: Multilabel classification metrics for Python
-Home-page: https://github.com/hell-sing/multi-label-metrics
+Home-page: https://github.com/llabhishekll/multi-label-metrics
 Author: Abhishek Verma
 Author-email: abhishek_verma@hotmail.com
 License: GNU_GPL licence, see LICENCE.txt
 Description-Content-Type: UNKNOWN
-Description: # Multi-label-matric
+Description: # Multi-label-metric
         Multi-label metric for python.
-         
-        
+
+
 Keywords: classification metrics machine-learning
 Platform: UNKNOWN
 Classifier: Development Status :: 3 - Alpha
